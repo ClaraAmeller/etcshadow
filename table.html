@@ -16,7 +16,7 @@
     <body>
         <script>
             $(document).ready(function () {
-                $("#myTable").tablesorter( {sortList: [[0,0], [1,0]]} );
+                $("#myTable").tablesorter();
                 $("#button").click(function() {
                     $(this).hide();
                     var table = "<table id='myTable' class='table tablesorter'><thead><tr><th>#</th><th>Àmbit</th><th>Nom</th></tr></thead><tbody>";
