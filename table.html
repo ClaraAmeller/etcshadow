@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Tablesorter</title>
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+        <!-- jQuery for Tablesorter -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <script>
+            $(document).ready(function () {
+                $("#myTable").tablesorter( {sortList: [[0,0], [1,0]]} );
+                $("#button").click(function() {
+                    $(this).hide();
+                    var table = "<table id='myTable' class='table tablesorter'><thead><tr><th>#</th><th>Àmbit</th><th>Nom</th></tr></thead><tbody>";
+                    $.getJSON("http://api.idescat.cat/pob/v1/cerca.json?", function(data) {
+                        var entry = data.feed.entry;
+                        var i = 0;
+                        $.each(entry, function(key, val) {
+                            table += "<tr><td>"+ i +"<td>" + val.category[1].term + "</td><td>" + val.title + "</td></tr>";
+                            i++;
+                        });
+                        table += "</table>";
+                        $("#text").html(table);
+                    });
+
+                });
+
+            });
+        </script>
+        <div class="container">
+            <h1 class="mt-5">jQuery + Tablesorter </h1>
+            <button class="btn btn-success mt-5" id="button">Conèixer dades</button>
+            <div id="text" class="mt-5"></div>
+        </div>
+
+
+        <!--<script src="jquery.js"></script>-->
+        <script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.js"></script>
+    </body>
+</html>
